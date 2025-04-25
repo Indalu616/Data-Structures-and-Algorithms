@@ -1,0 +1,40 @@
+# Problem: Evaluate Reverse Polish Notation - https://leetcode.com/problems/evaluate-reverse-polish-notation/
+
+class Solution {
+    public int evalRPN(String[] tokens) {
+        Stack<Integer> stack=new Stack<>();
+        String operators="+-*/";
+         for(int i=0;i<tokens.length;i++){
+            if(operators.indexOf(tokens[i])==-1){
+                stack.push(Integer.parseInt(tokens[i]));
+            }else{
+                if(tokens[i].equals("+")){
+                    int second=stack.pop();//1
+                
+                    int first=stack.getLast();//2
+                    stack.pop();
+                    stack.push(first+second);
+                }else if(tokens[i].equals("-")){
+                   int second=stack.pop();//1
+                 
+                    int first=stack.pop();//2
+                 
+                    stack.push(first-second);
+                }else if(tokens[i].equals("*")){
+                    int second=stack.pop();//1
+                
+                    int first=stack.pop();//2
+          
+                    stack.push(first*second);
+                }else{
+                   int second=stack.pop();//1
+                   
+                    int first=stack.pop();//2
+                  
+                    stack.push(first/second);
+                }
+            }
+        }
+        return stack.pop();
+    }
+}
